@@ -1,4 +1,4 @@
-package com.nasdaq.Elections;
+package com.nasdaq.elections;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

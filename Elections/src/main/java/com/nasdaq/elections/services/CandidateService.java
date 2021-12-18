@@ -1,6 +1,6 @@
-package com.nasdaq.Elections.services;
+package com.nasdaq.elections.services;
 
-import com.nasdaq.Elections.domain.Candidate;
+import com.nasdaq.elections.domain.Candidate;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

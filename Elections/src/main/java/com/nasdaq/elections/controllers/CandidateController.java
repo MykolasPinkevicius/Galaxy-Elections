@@ -1,7 +1,7 @@
-package com.nasdaq.Elections.controllers;
+package com.nasdaq.elections.controllers;
 
-import com.nasdaq.Elections.domain.Candidate;
-import com.nasdaq.Elections.services.CandidateService;
+import com.nasdaq.elections.domain.Candidate;
+import com.nasdaq.elections.services.CandidateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

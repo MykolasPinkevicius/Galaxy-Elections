@@ -1,4 +1,4 @@
-package com.nasdaq.Elections.domain;
+package com.nasdaq.elections.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
