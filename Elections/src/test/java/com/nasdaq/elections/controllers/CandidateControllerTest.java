@@ -33,9 +33,10 @@ public class CandidateControllerTest {
     @Test
     public void should_contain_candidate_name_ballot_number_agenda() throws Exception {
 
-        this.mockMvc.perform(get("/candidates")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(
-                        containsString(Candidate.ADLAI_STEVENSON.getName())));
+        this.mockMvc.perform(get("/candidates"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(Candidate.ADLAI_STEVENSON.getName())));
     }
 
 }
