@@ -1,6 +1,5 @@
 package com.nasdaq.elections.services;
 
-import com.nasdaq.elections.dao.BallotDao;
 import com.nasdaq.elections.domain.Ballot;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +9,9 @@ import java.util.List;
 @Service
 public class BallotService {
 
-    private final BallotDao ballotDao;
+    private final com.nasdaq.elections.dao.BallotDao ballotDao;
 
-    public BallotService(BallotDao ballotDao) {
+    public BallotService(com.nasdaq.elections.dao.BallotDao ballotDao) {
 
         this.ballotDao = ballotDao;
     }
