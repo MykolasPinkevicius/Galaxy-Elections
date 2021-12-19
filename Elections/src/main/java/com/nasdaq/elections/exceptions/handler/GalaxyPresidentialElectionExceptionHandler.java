@@ -1,5 +1,6 @@
 package com.nasdaq.elections.exceptions.handler;
 
+import com.nasdaq.elections.exceptions.NobodyVotedException;
 import com.nasdaq.elections.exceptions.UserAlreadyVotedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,12 @@ public class GalaxyPresidentialElectionExceptionHandler extends ResponseEntityEx
 
     @ExceptionHandler(UserAlreadyVotedException.class)
     public ResponseEntity<Object> handleUserAlreadyVotedException(UserAlreadyVotedException e) {
+
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NobodyVotedException.class)
+    public ResponseEntity<Object> handleNobodyVotedException(NobodyVotedException e) {
 
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }

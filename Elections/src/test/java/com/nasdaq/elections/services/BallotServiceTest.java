@@ -1,6 +1,5 @@
 package com.nasdaq.elections.services;
 
-import com.nasdaq.elections.dao.BallotDao;
 import com.nasdaq.elections.domain.Ballot;
 import com.nasdaq.elections.testObjects.TestObjectProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,7 @@ public class BallotServiceTest {
 
     private BallotService ballotService;
     @Mock
-    private BallotDao ballotDao;
+    private com.nasdaq.elections.dao.BallotDao ballotDao;
 
     @BeforeEach
     public void setUp() {
@@ -33,7 +32,7 @@ public class BallotServiceTest {
         List<Ballot> expectedBallots = TestObjectProvider.getBallots();
 
         // when
-        when(ballotDao.findAll()).thenReturn(expectedBallots);
+        when(ballotService.findAll()).thenReturn(expectedBallots);
         List<Ballot> actualBallots = ballotService.findAll();
 
         // then

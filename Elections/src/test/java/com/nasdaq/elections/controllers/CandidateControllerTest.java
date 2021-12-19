@@ -31,7 +31,7 @@ public class CandidateControllerTest {
     }
 
     @Test
-    public void should_contain_candidate_name_ballot_number_agenda() throws Exception {
+    public void should_contain_candidate_name() throws Exception {
 
         this.mockMvc.perform(get("/candidates"))
                 .andDo(print())
