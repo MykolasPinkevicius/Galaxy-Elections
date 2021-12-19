@@ -2,6 +2,7 @@ package com.nasdaq.elections.controllers;
 
 import com.nasdaq.elections.domain.Candidate;
 import com.nasdaq.elections.services.CandidateService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,10 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
+    @Operation(summary = "Gets all current candidates names, ballot numbers and agendas")
     @GetMapping
     public ResponseEntity<List<Candidate>> getCandidates() {
+
         return new ResponseEntity<>(candidateService.getCandidates(), HttpStatus.OK);
     }
 }

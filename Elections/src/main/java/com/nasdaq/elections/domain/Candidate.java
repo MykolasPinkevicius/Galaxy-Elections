@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Candidate {
+
     ADLAI_STEVENSON("Adlai Stevenson", 1, "Ignorance is stubborn and prejudice is hard, hard work for hard working " +
             "people"),
     CHARLES_A_TOWNE("Carles A. Towne", 2, "Life's book is hard to understand. Why couldst thou not remain at school? " +
@@ -22,20 +23,24 @@ public enum Candidate {
     private final String agenda;
 
     Candidate(String name, int ballotNumber, String agenda) {
+
         this.name = name;
         this.agenda = agenda;
         this.ballotNumber = ballotNumber;
     }
 
     public String getName() {
+
         return name;
     }
 
     public int getBallotNumber() {
+
         return ballotNumber;
     }
 
     public String getAgenda() {
+
         return agenda;
     }
 }
