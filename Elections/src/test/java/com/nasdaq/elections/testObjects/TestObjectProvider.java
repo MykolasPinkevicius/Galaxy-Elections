@@ -5,6 +5,7 @@ import com.nasdaq.elections.domain.Candidate;
 import com.nasdaq.elections.domain.GalaxyRegion;
 import com.nasdaq.elections.domain.Voter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestObjectProvider {
@@ -29,5 +30,27 @@ public class TestObjectProvider {
         ballot.setGalaxyRegion(GalaxyRegion.NUCLEUS);
         ballot.setId(id);
         return ballot;
+    }
+
+    public static List<Ballot> getBallotsForSingleWinnerTest() {
+
+        List<Ballot> ballots = new ArrayList<>();
+        ballots.add(getBallot(Candidate.CHARLES_A_TOWNE, 1L));
+        ballots.add(getBallot(Candidate.ADLAI_STEVENSON, 2L));
+        ballots.add(getBallot(Candidate.ADLAI_STEVENSON, 3L));
+        ballots.add(getBallot(Candidate.ELLIOT_DANFORTH, 4L));
+        ballots.add(getBallot(Candidate.ADLAI_STEVENSON, 5L));
+        return ballots;
+    }
+
+    public static List<Ballot> getBallotsForMultipleWinnersTest() {
+
+        List<Ballot> ballots = new ArrayList<>();
+        ballots.add(getBallot(Candidate.CHARLES_A_TOWNE, 1L));
+        ballots.add(getBallot(Candidate.ADLAI_STEVENSON, 2L));
+        ballots.add(getBallot(Candidate.ADLAI_STEVENSON, 3L));
+        ballots.add(getBallot(Candidate.ELLIOT_DANFORTH, 4L));
+        ballots.add(getBallot(Candidate.ELLIOT_DANFORTH, 5L));
+        return ballots;
     }
 }
