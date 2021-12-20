@@ -4,7 +4,6 @@ import com.nasdaq.elections.business.CandidateResult;
 import com.nasdaq.elections.business.RegionCandidatesResult;
 import com.nasdaq.elections.business.response.*;
 import com.nasdaq.elections.dao.BallotDao;
-import com.nasdaq.elections.domain.Ballot;
 import com.nasdaq.elections.domain.Candidate;
 import com.nasdaq.elections.domain.GalaxyRegion;
 import com.nasdaq.elections.exceptions.NobodyVotedException;
@@ -48,23 +47,19 @@ public class ElectionService {
         List<CandidateResult> candidateResults = processCandidates();
         if (candidateResults.get(first).getVotes() > 0) {
             CandidateResult mostPopularCandidate = candidateResults.get(first);
-            if (((double) mostPopularCandidate.getVotes() / (double) ballotDao.count()) > 0.5D) {
-                SingleCandidateElectionFinishResponse singleCandidateElectionFinishResponse =
-                        new SingleCandidateElectionFinishResponse();
-                singleCandidateElectionFinishResponse.setCandidateResult(mostPopularCandidate);
-                return singleCandidateElectionFinishResponse;
+            if (moreThanHalfVotesBy(mostPopularCandidate)) {
+                return singleCandidateFinish(mostPopularCandidate);
             } else {
-                MultipleCandidatesElectionFinishResponse multipleCandidatesElectionFinishResponse =
-                        new MultipleCandidatesElectionFinishResponse();
-                List<CandidateResult> winners = new ArrayList<>();
-                winners.add(mostPopularCandidate);
-                winners.add(candidateResults.get(second));
-                multipleCandidatesElectionFinishResponse.setCandidateResult(winners);
-                return multipleCandidatesElectionFinishResponse;
+                return multipleCandidatesFinish(second, candidateResults, mostPopularCandidate);
             }
         } else {
             throw new NobodyVotedException("Nobody voted on Galaxy Presidential Elections");
         }
+    }
+
+    private boolean moreThanHalfVotesBy(CandidateResult mostPopularCandidate) {
+
+        return ((double) mostPopularCandidate.getVotes() / (double) ballotDao.count()) > 0.5D;
     }
 
     private List<CandidateResult> processCandidates() {
@@ -96,23 +91,45 @@ public class ElectionService {
 
         RegionCandidatesResult regionCandidatesResult = new RegionCandidatesResult();
         regionCandidatesResult.setGalaxyRegion(galaxyRegion);
-        regionCandidatesResult.setCandidatesResult(processBallots(ballotDao.findAllByGalaxyRegion(galaxyRegion)));
+        regionCandidatesResult.setCandidatesResult(processBallots(galaxyRegion));
         regionCandidatesResults.add(regionCandidatesResult);
     }
 
-    private List<CandidateResult> processBallots(Iterable<Ballot> regionBallots) {
+    private List<CandidateResult> processBallots(GalaxyRegion galaxyRegion) {
 
         List<CandidateResult> candidateResults = new ArrayList<>();
-        regionBallots.forEach(ballot -> processBallot(candidateResults, ballot));
+        Arrays.asList(Candidate.values()).forEach(candidate -> processCandidate(candidateResults, candidate,
+                galaxyRegion));
+        Collections.sort(candidateResults);
         return candidateResults;
     }
 
-    private void processBallot(List<CandidateResult> candidateResults, Ballot ballot) {
+    private void processCandidate(List<CandidateResult> candidateResults, Candidate candidate,
+                                  GalaxyRegion galaxyRegion) {
 
         CandidateResult candidateResult = new CandidateResult();
-        candidateResult.setCandidate(ballot.getCandidate());
-        candidateResult.setVotes(ballotDao.countByCandidateAndGalaxyRegion(
-                ballot.getCandidate(), ballot.getGalaxyRegion()));
+        candidateResult.setVotes(ballotDao.countByCandidateAndGalaxyRegion(candidate, galaxyRegion));
+        candidateResult.setCandidate(candidate);
         candidateResults.add(candidateResult);
+    }
+
+    private SingleCandidateElectionFinishResponse singleCandidateFinish(CandidateResult mostPopularCandidate) {
+
+        SingleCandidateElectionFinishResponse singleCandidateElectionFinishResponse =
+                new SingleCandidateElectionFinishResponse();
+        singleCandidateElectionFinishResponse.setCandidateResult(mostPopularCandidate);
+        return singleCandidateElectionFinishResponse;
+    }
+
+    private MultipleCandidatesElectionFinishResponse multipleCandidatesFinish
+            (int second, List<CandidateResult> candidateResults, CandidateResult mostPopularCandidate) {
+
+        MultipleCandidatesElectionFinishResponse multipleCandidatesElectionFinishResponse =
+                new MultipleCandidatesElectionFinishResponse();
+        List<CandidateResult> winners = new ArrayList<>();
+        winners.add(mostPopularCandidate);
+        winners.add(candidateResults.get(second));
+        multipleCandidatesElectionFinishResponse.setCandidateResult(winners);
+        return multipleCandidatesElectionFinishResponse;
     }
 }
