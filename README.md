@@ -31,6 +31,14 @@ None
 * **DataParameters**
 object Voter -< String id identification, object Ballot -< enum Candidate, enum GalaxyRegion.
 
+Example `{
+  "id": 38908090193,
+  "ballot": {
+    "candidate": "ADLAI_STEVENSON",
+    "galaxyRegion": "NUCLEUS"
+  }
+}`
+
 **Election**
 
 **Overal Distribution Of Votes**
@@ -68,10 +76,10 @@ None
 
 
 
-* **Candidates**
+# **Candidates**
 ADLAI_STEVENSON, CHARLES_A_TOWNE, ELLIOT_DANFORTH, WILLIAM_SULZER, JOSEPH_C_SIBLEY, ROBERT_E_PATTISON, THEODORE_ROOSEVELT, WILLIAM_MCKINLEY
 
-* **GalaxyRegions**
+# **GalaxyRegions**
 NUCLEUS, CENTRAL_BULGE, THIN_DISK, THICK_DISK, SPIRAL_ARMS, SPHERICAL_COMPONENT, MASSIVE_HALO
 
 
