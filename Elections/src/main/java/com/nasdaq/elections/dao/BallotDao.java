@@ -9,7 +9,5 @@ public interface BallotDao extends CrudRepository<Ballot, Long> {
 
     long countByCandidate(Candidate candidate);
 
-    Iterable<Ballot> findAllByGalaxyRegion(GalaxyRegion galaxyRegion);
-
     long countByCandidateAndGalaxyRegion(Candidate candidate, GalaxyRegion galaxyRegion);
 }
