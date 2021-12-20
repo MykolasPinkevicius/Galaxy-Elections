@@ -22,7 +22,7 @@ public class BallotController {
         this.ballotService = ballotService;
     }
 
-    @Operation(summary = "Gets all current available ballots")
+    @Operation(summary = "Gets all ballots")
     @GetMapping
     public ResponseEntity<List<Ballot>> getBallots() {
 

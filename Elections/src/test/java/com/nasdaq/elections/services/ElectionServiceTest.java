@@ -3,10 +3,8 @@ package com.nasdaq.elections.services;
 import com.nasdaq.elections.business.response.OverallVotesDistributionByRegionResponse;
 import com.nasdaq.elections.business.response.OverallVotesDistributionResponse;
 import com.nasdaq.elections.dao.BallotDao;
-import com.nasdaq.elections.domain.Ballot;
 import com.nasdaq.elections.domain.Candidate;
 import com.nasdaq.elections.domain.GalaxyRegion;
-import com.nasdaq.elections.testObjects.TestObjectProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -50,8 +48,6 @@ public class ElectionServiceTest {
 
         // given
         long expected = 1;
-        Iterable<Ballot> ballots = TestObjectProvider.getBallots();
-        when(ballotDao.findAllByGalaxyRegion(GalaxyRegion.NUCLEUS)).thenReturn(ballots);
         when(ballotDao.countByCandidateAndGalaxyRegion(Candidate.ADLAI_STEVENSON, GalaxyRegion.NUCLEUS))
                 .thenReturn(expected);
         when(ballotDao.countByCandidateAndGalaxyRegion(Candidate.CHARLES_A_TOWNE, GalaxyRegion.NUCLEUS))
