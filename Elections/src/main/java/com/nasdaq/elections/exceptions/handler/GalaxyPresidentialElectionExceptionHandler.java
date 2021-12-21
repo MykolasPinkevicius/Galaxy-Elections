@@ -14,13 +14,13 @@ public class GalaxyPresidentialElectionExceptionHandler extends ResponseEntityEx
     @ExceptionHandler(UserAlreadyVotedException.class)
     public ResponseEntity<Object> handleUserAlreadyVotedException(UserAlreadyVotedException e) {
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(NobodyVotedException.class)
     public ResponseEntity<Object> handleNobodyVotedException(NobodyVotedException e) {
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.PRECONDITION_FAILED);
     }
 
     @ExceptionHandler(RuntimeException.class)

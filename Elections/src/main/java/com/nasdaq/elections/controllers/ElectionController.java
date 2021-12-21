@@ -5,6 +5,7 @@ import com.nasdaq.elections.business.response.OverallVotesDistributionByRegionRe
 import com.nasdaq.elections.business.response.OverallVotesDistributionResponse;
 import com.nasdaq.elections.services.ElectionService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,8 @@ public class ElectionController {
     }
 
     @Operation(summary = "Returns candidate if he won by more than 50% else returns two who got the most votes")
+    @ApiResponse(responseCode = "200", description = "Congratulate the winner or next round winners")
+    @ApiResponse(responseCode = "412", description = "Why nobody voted on our election?")
     @GetMapping(path = "/finishElection")
     public ResponseEntity<ElectionFinishResponse> finishElection() {
 
