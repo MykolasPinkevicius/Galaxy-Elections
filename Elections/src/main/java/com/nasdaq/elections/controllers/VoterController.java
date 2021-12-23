@@ -27,7 +27,7 @@ public class VoterController {
     @Operation(summary = "You need to provide voters Region and ballot")
     @ApiResponse(responseCode = "200", description = "You voted, thank you for participation")
     @ApiResponse(responseCode = "405", description = "You already voted, take a seat and wait for results")
-    @PostMapping
+    @PostMapping(path = "/vote")
     public ResponseEntity<Voter> vote(@Valid @RequestBody Voter voter) {
 
         return new ResponseEntity<>(voterService.vote(voter), HttpStatus.OK);

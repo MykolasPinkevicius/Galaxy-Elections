@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ElectionService {
@@ -64,53 +64,43 @@ public class ElectionService {
 
     private List<CandidateResult> processCandidates() {
 
-        List<CandidateResult> candidateResults = new ArrayList<>();
-        Arrays.asList(Candidate.values()).forEach(candidate -> processCandidate(candidateResults, candidate));
-        Collections.sort(candidateResults);
-        return candidateResults;
+        return Arrays.stream(Candidate.values()).map(this::processCandidate).sorted().collect(Collectors.toList());
     }
 
-    private void processCandidate(List<CandidateResult> candidateResults, Candidate candidate) {
+    private CandidateResult processCandidate(Candidate candidate) {
 
         CandidateResult candidateResult = new CandidateResult();
         candidateResult.setCandidate(candidate);
         candidateResult.setVotes(ballotDao.countByCandidate(candidate));
-        candidateResults.add(candidateResult);
+        return candidateResult;
     }
 
     private List<RegionCandidatesResult> processCandidatesByRegion() {
 
-        List<RegionCandidatesResult> regionCandidatesResults = new ArrayList<>();
-        Arrays.asList(GalaxyRegion.values()).forEach(galaxyRegion -> processRegionCandidates(regionCandidatesResults,
-                galaxyRegion));
-        return regionCandidatesResults;
+        return Arrays.stream(GalaxyRegion.values()).map(this::processRegionCandidates).collect(Collectors.toList());
     }
 
-    private void processRegionCandidates(List<RegionCandidatesResult> regionCandidatesResults,
-                                         GalaxyRegion galaxyRegion) {
+    private RegionCandidatesResult processRegionCandidates(GalaxyRegion galaxyRegion) {
 
         RegionCandidatesResult regionCandidatesResult = new RegionCandidatesResult();
         regionCandidatesResult.setGalaxyRegion(galaxyRegion);
         regionCandidatesResult.setCandidatesResult(processBallots(galaxyRegion));
-        regionCandidatesResults.add(regionCandidatesResult);
+        return regionCandidatesResult;
     }
 
     private List<CandidateResult> processBallots(GalaxyRegion galaxyRegion) {
 
-        List<CandidateResult> candidateResults = new ArrayList<>();
-        Arrays.asList(Candidate.values()).forEach(candidate -> processCandidate(candidateResults, candidate,
-                galaxyRegion));
-        Collections.sort(candidateResults);
-        return candidateResults;
+        return Arrays.stream(Candidate.values()).map(candidate -> processCandidate(candidate, galaxyRegion))
+                .collect(Collectors.toList());
     }
 
-    private void processCandidate(List<CandidateResult> candidateResults, Candidate candidate,
-                                  GalaxyRegion galaxyRegion) {
+    private CandidateResult processCandidate(Candidate candidate,
+                                             GalaxyRegion galaxyRegion) {
 
         CandidateResult candidateResult = new CandidateResult();
         candidateResult.setVotes(ballotDao.countByCandidateAndGalaxyRegion(candidate, galaxyRegion));
         candidateResult.setCandidate(candidate);
-        candidateResults.add(candidateResult);
+        return candidateResult;
     }
 
     private SingleCandidateElectionFinishResponse singleCandidateFinish(CandidateResult mostPopularCandidate) {
