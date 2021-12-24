@@ -30,8 +30,8 @@ public class VoterService {
 
     private void validateVoter(Voter voter) {
 
-        if (voter.getId() != null && findById(voter.getId()).isPresent()) {
-            throw new UserAlreadyVotedException(String.format("Voter id %d already voted", voter.getId()));
+        if (voter.getVoterId() != null && findById(voter.getVoterId()).isPresent()) {
+            throw new UserAlreadyVotedException(String.format("Voter id %d already voted", voter.getVoterId()));
         }
     }
 }

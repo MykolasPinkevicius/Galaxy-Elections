@@ -13,7 +13,7 @@ public class TestObjectProvider {
     public static Voter getVoter(Long id) {
 
         Voter voter = new Voter();
-        voter.setId(id);
+        voter.setVoterId(id);
         voter.setBallot(getBallot(Candidate.CHARLES_A_TOWNE, 1L));
         return voter;
     }
