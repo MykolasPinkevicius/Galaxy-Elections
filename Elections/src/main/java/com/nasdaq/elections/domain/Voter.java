@@ -9,20 +9,20 @@ public class Voter {
 
     @Id
     @NotNull(message = "Galaxy citizen identification code must be present")
-    private Long id;
+    private Long voterId;
     @NotNull(message = "Ballot must be present")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Ballot ballot;
 
-    public Long getId() {
+    public Long getVoterId() {
 
-        return id;
+        return voterId;
     }
 
-    public void setId(Long id) {
+    public void setVoterId(Long voterId) {
 
-        this.id = id;
+        this.voterId = voterId;
     }
 
     public Ballot getBallot() {
